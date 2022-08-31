@@ -1,0 +1,12 @@
+projects:
+  getemailext:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - graphQlApi
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: .
