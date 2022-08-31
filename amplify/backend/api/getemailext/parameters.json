@@ -1,0 +1,5 @@
+{
+  "AppSyncApiName": "getemailext",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false
+}
