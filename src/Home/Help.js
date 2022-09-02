@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import logo from "../Assets/images/logo-1.png";
 import prospects from "../Assets/images/prospects.svg";
 import search from "../Assets/images/search.svg";
@@ -8,7 +8,19 @@ import addChrome from "../Assets/images/chrome-ex.svg";
 import helpImg from "../Assets/images/help.svg";
 import userimg from "../Assets/images/userimg.svg";
 import arrow from "../Assets/images/arrow-up.svg";
+import { Amplify, API, Storage } from 'aws-amplify'
+
  function Help() {
+	
+	const uploadImage = async (event) => {
+		debugger;
+     const result= await Storage.put(event.target.files[0].name
+		,event.target.files[0],{
+		contentType:event.target.files[0].type
+
+	 });
+console.log(result);
+	 }
   return(
 <>
 <header className="header-sec">
@@ -70,7 +82,7 @@ import arrow from "../Assets/images/arrow-up.svg";
 				  <label  className="mb-3 form-label">Attach printscreen (several files can be selected)</label>
 				  <div className="position-relative upload-custom d-flex justify-content-center align-items-center">
 					<label for="formFileLg" className="form-label"><img src={arrow} className="me-3"/>Click or Drag and Drop files here to upload.</label>
-					<input className="form-control form-control-lg" id="formFileLg" type="file"/>
+					<input className="form-control form-control-lg" accept="image/*" onChange={(e)=>uploadImage(e)} type="file"/>
 				  </div>
 				</div>
 				<div className="text-center pt-3">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import extensionImg from "../Assets/images/xmark.svg";
 import logo1 from "../Assets/images/logo-1.png";
 import prospect from "../Assets/images/prospects.svg";
@@ -10,9 +10,52 @@ import helpImg from "../Assets/images/help.svg";
 import userimg from "../Assets/images/userimg.svg";
 import us_er from "../Assets/images/us_er.svg";
 import internet_glob from "../Assets/images/internet_glob.svg";
-import { ToastContainer, toast } from 'react-toastify';
-
+import {DataStore} from "@aws-amplify/datastore";
+import {SignUpModel}  from "../models";
+import "bootstrap/dist/css/bootstrap.css";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
  function Dashboard() {
+   
+	const [userData,setUserData]=useState([]);
+	useEffect(()=>{
+		debugger
+		getUserData();
+	},[])
+
+	const getUserData = async () => {
+    const users = await DataStore.query(SignUpModel);
+	console.log(users)
+	setUserData(users);
+   
+    }
+	const columns = [
+		
+		{
+		  dataField: "firstname",
+		  text: "First Name",
+		  sort: true
+		},
+			
+		{
+			dataField: "firstname",
+			text: "Last Name",
+			sort: true
+		  },
+		{
+		  dataField: "istermsandcondtionaccepted",
+		  text: "Status"
+		},
+		{
+			dataField: "emailaddress",
+			text: "Email"
+		  },
+		  {
+			dataField:"createdAt",
+			text:"Date"
+		  }
+	  ];
   return (
     <>
 {/* <ToastContainer/> */}
@@ -94,7 +137,18 @@ import { ToastContainer, toast } from 'react-toastify';
 			</form>
 		</div>
   </section>
-    
+  {
+	userData ? 
+	<BootstrapTable
+        bootstrap4
+        keyField="id"
+        data={userData}
+        columns={columns}
+        pagination={paginationFactory({ sizePerPage: 5 })}
+      />
+	:""
+  }
+  
 	</>
   );
 }

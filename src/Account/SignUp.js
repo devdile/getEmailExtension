@@ -6,14 +6,16 @@ import searchImage from "../Assets/images/search-select.svg";
 import googleImg from "../Assets/images/google.svg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useMutation } from "@apollo/client"
 import { SIGN_UP_USER } from "../GraphQl/mutations";
 import { useNavigate } from "react-router-dom";
-
+import { Amplify, API, graphqlOperation,Auth } from 'aws-amplify';
+import awsExports from "../aws-exports";
+import {SignUpModel}  from "../models"
+import {DataStore} from "@aws-amplify/datastore";
+Amplify.configure(awsExports);
 function SignUp() {
 	let navigate = useNavigate();
-
-	const signUpSchema = Yup.object().shape({
+    const signUpSchema = Yup.object().shape({
 		firstname: Yup.string().required("First name is required"),
 		lastname: Yup.string().required("Last name is required"),
 		emailaddress: Yup.string().email("Invalid email").required("Email is required"),
@@ -25,13 +27,27 @@ function SignUp() {
 
 	});
 
-	const [addUser, { data,loading }] = useMutation(SIGN_UP_USER, {
+	const signUpUser = async (values)=> {
+		try {
+	
+	     const todo = { ...values }
+         const newUser= await DataStore.save(
+            new SignUpModel({firstname: todo.firstname, 
+                lastname: todo.lastname,
+                emailaddress: todo.emailaddress, 
+                password: todo.password,
+                istermsandconditionaccept:todo.istermsandconditionaccept})
+          )
+     
+		  if(newUser){
+			navigate("/");
+		  }
+		  } catch (err) {
+			console.log('error creating:', err)
+		  }
 		
-	})
-	  if (loading) return <p>Loading ...</p>;
-	  if (data ) {
-		navigate("/");
-	}
+		}
+
 	return (
 		<section className="login-form sign-up">
 			<div className="row gx-0">
@@ -44,15 +60,7 @@ function SignUp() {
 								<div className="user-imgbx text-center">
 									<img src={user} />
 								</div>
-								<Formik initialValues={{ firstname: "", lastname: "", emailaddress: "", password: "", istermsandconditionaccept: false }} validationSchema={signUpSchema} onSubmit={(fields, { resetForm }) => {
-									addUser({
-										variables: {
-											...fields
-
-										}
-									});
-									resetForm();
-								}}>
+								<Formik initialValues={{ firstname: "", lastname: "", emailaddress: "", password: "", istermsandconditionaccept: false }} validationSchema={signUpSchema} onSubmit={signUpUser}>
 									<Form className="login-form mt-4">
 										<div className="row g-2">
 											<div className="col-md-6">

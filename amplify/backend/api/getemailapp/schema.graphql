@@ -1,0 +1,8 @@
+type SignUpModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstname: String
+  lastname: String
+  emailaddress: String
+  password: String
+  istermsandcondtionaccepted: Boolean
+} 
