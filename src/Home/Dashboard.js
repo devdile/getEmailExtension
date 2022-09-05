@@ -35,16 +35,16 @@ function Dashboard() {
 
 	const keyupHandle = (event) => {
 		
-	// 	setNewList(userData);
-	// 	if(event.target.value){
-	// 		const userFilterList = userData.includes(event.target.value);
-	// 		setUserData(userFilterList);
-	// 	}
+		setNewList(userData);
+		if(event.target.value){
+			const userFilterList = userData.filter(x=>x.lastname=event.target.value);
+			setUserData(userFilterList);
+		}
 
-    //  else {
-	// 	setUserData(newList);
+     else {
+		setUserData(newList);
 
-	//  }
+	 }
 	}
 	const columns = [
 
@@ -55,7 +55,7 @@ function Dashboard() {
 		},
 
 		{
-			dataField: "firstname",
+			dataField: "lastname",
 			text: "Last Name",
 			sort: true
 		},
