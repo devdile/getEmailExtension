@@ -385,7 +385,21 @@ h2.text-center.head-ing {
 }
 
 
-
+.custom_table thead th {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    text-transform: uppercase;
+    color: #666666;
+    text-align: left;
+    border: none;
+}
+.custom_table thead tr{
+	border-width: 0;
+}
+.custom_table .react-bootstrap-table-pagination {
+    text-align: left;
+}
 
 
 

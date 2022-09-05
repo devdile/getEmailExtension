@@ -37,7 +37,7 @@ function Dashboard() {
 		
 		setNewList(userData);
 		if(event.target.value){
-			const userFilterList = userData.filter(x=>x.lastname=event.target.value);
+			const userFilterList = userData.filter(x=>x.lastname==event.target.value);
 			setUserData(userFilterList);
 		}
 
@@ -156,14 +156,14 @@ function Dashboard() {
 				<div className='container max-w text-end'>
 					<div className='d-flex align-items-center'>
 						<form className='overflow-hidden w-100 position-relative'>
-							<input type='text' placeholder='Enter search query here' onKeyUp={(e) => keyupHandle(e)} className='w-100 border-0 outline-none shadow-none h-100' />
+							<input type='text' placeholder='Enter search query here' onChange={(e) => keyupHandle(e)} className='w-100 border-0 outline-none shadow-none h-100' />
 							<button type='submit'><img src={search} /></button>
 						</form>
 						<img className='ms-3' src={setting_icon} />
 					</div>
 				</div>
 			</div>
-			<div className='container'>
+			<div className='container max-w custom_table'>
 				{
 					userData ?
 						<BootstrapTable
