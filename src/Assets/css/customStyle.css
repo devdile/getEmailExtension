@@ -34,6 +34,8 @@ p{
 .input-feedback {
 	color: red;
 	margin-top: .25rem;
+	text-align: left;
+	font-size: 14px;
   }
  .input.error {
 	border-color: red;
@@ -105,7 +107,7 @@ p{
 	width: 100%;
 }
 .login-form input{
-	margin-bottom: 25px;
+	margin-top: 25px;
 }
 .login-form .form-control{
 	border: 1px solid #999999;
@@ -353,7 +355,34 @@ h2.text-center.head-ing {
     min-width: 26px;
 }
 
+.Search-form form {
+	max-width: 369px;
+    height: 60.63px;
+    border: 1px solid #DBDBDB;
+    border-radius: 16px;
+    margin: 0 0 0 auto;
+}
 
+.Search-form form input {
+    outline: none;
+    font-size: 18px;
+    padding: 0px 24px 0 53px;
+}
+
+.Search-form form button {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 15px;
+    background: none;
+    border: none !important;
+    outline: none;
+    opacity: .5;
+    transform: translateY(-50%);
+}
+.Search-form form button img{
+	max-height: 20px;
+}
 
 
 

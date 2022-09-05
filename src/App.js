@@ -1,5 +1,5 @@
-import AppRouting from './routing';
 import './App.css';
+import AppRouting from './routing';
 import "./Assets/css/customStyle.css";
 
 function App() {

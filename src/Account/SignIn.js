@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import loginMail from "../Assets/images/login-mail-icon.svg";
 import searchImage from "../Assets/images/search-select.svg";
 import logo from "../Assets/images/logo.png";
+import googleImg from "../Assets/images/google.svg";
 import { useNavigate } from "react-router-dom";
 import {DataStore} from "@aws-amplify/datastore";
 import {SignUpModel}  from "../models"
@@ -27,7 +28,6 @@ function SignIn() {
   
         const loginUserModal = await DataStore.query(SignUpModel);
         const isUserExist=loginUserModal.filter(x=>x.emailaddress==values.emailaddress && x.password==values.password);
-        debugger;
        if (isUserExist) {
             navigate("/dashboard");
       }
@@ -77,11 +77,12 @@ function SignIn() {
 
                             </div>
                             <div className="text-center login-google">
+                            <h5 class="mb-md-0 lh_normal">Login with</h5>
                                 {/* <GoogleLogin
                   clientId="131223797034-m164o2jrpno9f72sgttj3kpdgseq3eg3.apps.googleusercontent.com"
                   isSignedIn={true} /> */}
-                                <button onClick={() => Auth.federatedSignIn({ provider: 'Google' })}>
-                                     Login in with Google
+                                <button class="btn primary_bg custom-btn w-100 btn_md mt-30 border-btn d-flex align-items-center justify-content-center" onClick={() => Auth.federatedSignIn({ provider: 'Google' })}>
+                                <img src={googleImg} className="me-2" /> Google
                                 </button>
                             </div>
                         </div>

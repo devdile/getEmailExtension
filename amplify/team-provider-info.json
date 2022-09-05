@@ -14,6 +14,11 @@
     "categories": {
       "auth": {
         "getemailapp": {}
+      },
+      "function": {
+        "getemailapp3ab0fe62": {
+          "testgetemaillabmda": "getemail"
+        }
       }
     }
   }

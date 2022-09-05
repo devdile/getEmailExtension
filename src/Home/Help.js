@@ -13,7 +13,6 @@ import { Amplify, API, Storage } from 'aws-amplify'
  function Help() {
 	
 	const uploadImage = async (event) => {
-		debugger;
      const result= await Storage.put(event.target.files[0].name
 		,event.target.files[0],{
 		contentType:event.target.files[0].type

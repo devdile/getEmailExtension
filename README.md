@@ -68,3 +68,20 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Accomplished point in test project
+1) Created react project and embaded it with aws amplify.
+2) Created credential for google signIn/SignUp.
+3) Implemented figma design to react component.
+4) Implemented and deployed authorization in aws amplify.
+5) Implemented and deployed data store in aws amplify.
+6) Implemented graphql API using awa amplify.
+7) Implemented aws amplify in eveypage in react side.
+8) Implemented S3 storage.
+9) Implemented hosting enviornment(github).
+
+### Pending Items
+
+1) Email functionality using aws SES (For forgot password link).
+2) Google signIn/SignUp.

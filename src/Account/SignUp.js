@@ -79,10 +79,12 @@ function SignUp() {
 										<Field type="password" name="password" className="form-control mb-0" placeholder="Password" />
 										<ErrorMessage className="input-feedback" name="password" component="div" />
 										<div className="form-check">
-											<Field name="istermsandconditionaccept" type="checkbox" className="form-check-input" />
+											<div className='d-flex mt-2'>
+										<Field name="istermsandconditionaccept" type="checkbox" className="form-check-input mt-0 me-2" />
+										<label className="form-check-label" for="exampleCheck1">I agree to getemail.io <span className="green_clr">User Agreement, Privacy Policy, and GDPR Addendum.</span></label>
+										</div>
 											<ErrorMessage className="input-feedback" name="istermsandconditionaccept" component="div" />
-
-											<label className="form-check-label" for="exampleCheck1">I agree to getemail.io <span className="green_clr">User Agreement, Privacy Policy, and GDPR Addendum.</span></label>
+											
 										</div>
 
 										<button type="submit" className="btn primary_bg custom-btn w-100 btn_md mt-40">Register</button>

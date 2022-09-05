@@ -13,7 +13,7 @@ import logo from "../Assets/images/logo.png";
 					<h6 className="mt-5 text-dark px-2">Enter your email and we'll send you your recovery details.</h6>
 					<form className="login-form mt-40">
 						  <input type="email" className="form-control" placeholder="Email Address" id="email"/>
-						  <button type="submit" className="btn primary_bg custom-btn w-100 btn_md">Send Email</button>
+						  <button type="submit" className="btn primary_bg custom-btn w-100 btn_md mt-40">Send Email</button>
 					</form>
 				</div>
 				<div className="text-center margin_top">
