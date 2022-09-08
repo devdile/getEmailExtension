@@ -78,9 +78,7 @@ function SignIn() {
                             </div>
                             <div className="text-center login-google">
                             <h5 class="mb-md-0 lh_normal">Login with</h5>
-                                {/* <GoogleLogin
-                  clientId="131223797034-m164o2jrpno9f72sgttj3kpdgseq3eg3.apps.googleusercontent.com"
-                  isSignedIn={true} /> */}
+                      
                                 <button class="btn primary_bg custom-btn w-100 btn_md mt-30 border-btn d-flex align-items-center justify-content-center" onClick={() => Auth.federatedSignIn({ provider: 'Google' })}>
                                 <img src={googleImg} className="me-2" /> Google
                                 </button>
