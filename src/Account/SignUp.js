@@ -93,8 +93,7 @@ function SignUp() {
 							</div>
 							<div className="text-center login-google mt-0">
 								<h5 className="mb-md-0 lh_normal">Register with</h5>
-								<a href="#!" className="btn primary_bg custom-btn w-100 btn_md mt-40 border-btn d-flex align-items-center justify-content-center"><img src={googleImg} className="me-2" /> Google</a>
-							</div>
+								<a href="#!" className="btn primary_bg custom-btn w-100 btn_md mt-40 border-btn d-flex align-items-center justify-content-center" onClick={() => Auth.federatedSignIn({ provider: 'Google' })}><img alt='' src={googleImg} className="me-2" /> Google</a>							</div>
 						</div>
 					</div>
 				</div>
