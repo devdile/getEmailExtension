@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import SignIn from './Account/SignIn';
 import SignUp from './Account/SignUp';
 import Dashboard from './Home/Dashboard';
-import ForgotPassword from './Account/forgotpassword';
+import ForgotPassword from './Account/ForgotPassword';
 import Help from './Home/Help';
 
 
