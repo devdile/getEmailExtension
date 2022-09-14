@@ -17,61 +17,77 @@ import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import columns from "../Common/tableColumn"
+
 function Dashboard() {
 
 	const [userData, setUserData] = useState([]);
 	const [newList,setNewList]=useState([]);
-	useEffect(() => {
+	const [findEmail, setFindEmail] = useState([]);
+	const [selectedColumns, setSelectedColumns] = useState(columns)
 
+	const findEmailSchema = Yup.object().shape({
+        firstname: Yup.string(),
+		lastname: Yup.string(),
+		website: Yup.string(),
+    });
+	
+	useEffect(() => {
 		getUserData();
 	}, [])
 
 	const getUserData = async () => {
 		const users = await DataStore.query(SignUpModel);
-		console.log(users)
 		setUserData(users);
-
+		setNewList(users);
 	}
+
+	const findEmails = async (values) => {
+		
+		let isEmail 
+		if(values.firstname != '' && values.lastname != '' && values.website == '')
+			isEmail = userData.filter(x => x.firstname === values.firstname && x.lastname === values.lastname);
+		else if(values.firstname != '' && values.lastname == '')
+			isEmail = userData.filter(x => x.firstname === values.firstname);
+		else if(values.firstname == '' && values.lastname != '')
+			isEmail = userData.filter(x => x.lastname === values.lastname);
+		else
+			isEmail = userData.filter(x => x.firstname === values.firstname || x.lastname === values.lastname || x.website === values.website);
+
+		setFindEmail(isEmail)
+    }
 
 	const keyupHandle = (event) => {
 		
-		setNewList(userData);
 		if(event.target.value){
-			const userFilterList = userData.filter(x=>x.lastname==event.target.value);
+			let lowerCased = event.target.value.toLowerCase();
+			const userFilterList = newList.filter(item => 
+				Object.keys(item)
+				  .some((key) => {
+				  if(typeof item[key] == 'string'){
+					return item[key].toString().includes(lowerCased)
+				  }
+				  return null
+				})
+			 );
 			setUserData(userFilterList);
 		}
-
-     else {
-		setUserData(newList);
-
-	 }
-	}
-	const columns = [
-
-		{
-			dataField: "firstname",
-			text: "First Name",
-			sort: true
-		},
-
-		{
-			dataField: "lastname",
-			text: "Last Name",
-			sort: true
-		},
-		{
-			dataField: "istermsandcondtionaccepted",
-			text: "Status"
-		},
-		{
-			dataField: "emailaddress",
-			text: "Email"
-		},
-		{
-			dataField: "createdAt",
-			text: "Date"
+		else {
+			setUserData(newList);
 		}
-	];
+	}
+
+	const selectedColumn = index => e => {
+		let array = [...selectedColumns];
+		if(array[index].text == e.target.value){
+			array[index].check = !array[index].check
+		};
+		setSelectedColumns(array);		
+	}
+	
+
 	return (
 		<>
 			{/* <ToastContainer/> */}
@@ -123,13 +139,14 @@ function Dashboard() {
 				</nav>
 			</header>
 			<section className="form_sec">
-				<form className="d-md-flex justify-content-between align-items-center text-center">
+				<Formik initialValues={{ firstname: "", lastname: "", website:""}} validationSchema={findEmailSchema} onSubmit={findEmails}>
+					<Form className="d-md-flex justify-content-between align-items-center text-center">
 					<div className="d-flex align-items-center position-relative">
 						<span>
 							<img src={us_er} />
 						</span>
 						<div className="px-3">
-							<input type="text" className="form-control-plaintext" placeholder="First name" />
+							<Field type="text" name="firstname" className="form-control-plaintext" placeholder="First name" />
 						</div>
 					</div>
 					<div className="d-flex align-items-center position-relative">
@@ -137,7 +154,7 @@ function Dashboard() {
 							<img src={us_er} />
 						</span>
 						<div className="px-3">
-							<input type="text" className="form-control-plaintext" placeholder="Last name" />
+							<Field type="text" name="lastname" className="form-control-plaintext" placeholder="Last name" />
 						</div>
 					</div>
 					<div className="d-flex align-items-center position-relative">
@@ -145,12 +162,27 @@ function Dashboard() {
 							<img src={internet_glob} />
 						</span>
 						<div className="px-3">
-							<input type="text" className="form-control-plaintext" placeholder="Website name" />
+							<Field type="text" name="website" className="form-control-plaintext" placeholder="Website name" />	
 						</div>
 					</div>
-					<a href="#/" className="d-inline-flex justify-content-center align-items-center btn btn_lg primary_bg custom-btn">Find Email</a>
-				</form>
+					<button type="submit" className="d-inline-flex justify-content-center align-items-center btn btn_lg primary_bg custom-btn">Find Email</button>
+					</Form>
+				</Formik>
 			</section>
+			
+			<div className='container max-w custom_table'>
+				{
+					findEmail.length !=0 ?
+						<BootstrapTable
+							bootstrap4
+							keyField="id"
+							data={findEmail}
+							columns={columns}
+							pagination={paginationFactory({ sizePerPage: 5 })}
+						/>
+						: null
+				}
+			</div>
 
 			<div className='Search-form my-4'>
 				<div className='container max-w text-end'>
@@ -159,21 +191,37 @@ function Dashboard() {
 							<input type='text' placeholder='Enter search query here' onChange={(e) => keyupHandle(e)} className='w-100 border-0 outline-none shadow-none h-100' />
 							<button type='submit'><img src={search} /></button>
 						</form>
-						<img className='ms-3' src={setting_icon} />
+						
+						<div className="dropdown">
+							<img className='ms-3' id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" src={setting_icon} />
+							<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+								<li className='m-2'>
+								{columns ? columns.map((item, index)=>{
+									return(
+									<div className="form-check" key={index}>
+										<label className="form-check-label" for={`flexCheckDefault${index}`}>
+										<input className="form-check-input" type="checkbox" checked={item.check} value={item.text} id={`flexCheckDefault${index}`} onChange={selectedColumn(index)}/>
+										{item.text}</label>
+									</div>
+									)
+								}): null}
+								</li>
+							</ul>
+						</div>	
 					</div>
 				</div>
 			</div>
 			<div className='container max-w custom_table'>
 				{
-					userData ?
+					userData.length !=0 ?
 						<BootstrapTable
 							bootstrap4
 							keyField="id"
 							data={userData}
-							columns={columns}
+							columns={selectedColumns.filter(x=> x.check == true)}
 							pagination={paginationFactory({ sizePerPage: 5 })}
 						/>
-						: ""
+						: "No data to show"
 				}
 			</div>
 		</>

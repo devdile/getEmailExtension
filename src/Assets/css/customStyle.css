@@ -296,6 +296,22 @@ header.header-sec nav.navbar.nav_menu ul.dropdown-menu{
     color: #999999;
 }
 
+/*Pagination*/
+.page-link.active, .active > .page-link{ /*===== Dashboard table pagination ===*/
+    color: white;
+    background-color: #1DB954;
+    border-color: #1DB954;
+}
+a.page-link{
+	color: black;
+}
+
+/*Dropdown checkbox*/
+.form-check-input:checked {
+    background-color: #1DB954;
+    border-color: #1DB954;
+}
+
 /*===== help screen css start here ===*/
 h2.text-center.head-ing {
     font-size: 18px;

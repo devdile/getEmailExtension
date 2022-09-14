@@ -18,7 +18,7 @@ import { Amplify, API, Storage } from 'aws-amplify'
 		contentType:event.target.files[0].type
 
 	 });
-console.log(result);
+		console.log(result);
 	 }
   return(
 <>
