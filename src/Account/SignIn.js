@@ -25,13 +25,11 @@ function SignIn() {
     });
 
     const LoggedIn = async (values) => {
-  
         const loginUserModal = await DataStore.query(SignUpModel);
-        const isUserExist=loginUserModal.filter(x=>x.emailaddress==values.emailaddress && x.password==values.password);
-       if (isUserExist) {
+        const isUserExist = loginUserModal.filter(x => x.emailaddress==values.emailaddress && x.password==values.password);
+        if (isUserExist.length != 0) {
             navigate("/dashboard");
-      }
-        
+        }
     }
 
     return (

@@ -13,12 +13,14 @@ import { Amplify, API, Storage } from 'aws-amplify'
  function Help() {
 	
 	const uploadImage = async (event) => {
-     const result= await Storage.put(event.target.files[0].name
-		,event.target.files[0],{
-		contentType:event.target.files[0].type
-
-	 });
-		console.log(result);
+		let image = event.target.files[0];
+		const fileExtension = image.name.split(".").at(-1);
+		const allowedFileTypes = ["jpg", "png", "jpeg", 'gif'];
+		if (!allowedFileTypes.includes(fileExtension)) {
+		 alert(`File does not support. Files type must be ${allowedFileTypes.join(",")}`);
+        } else {
+			const result= await Storage.put(image.name, image, { contentType: image.type });
+		}
 	 }
   return(
 <>
