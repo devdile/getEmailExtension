@@ -162,6 +162,14 @@ p{
     box-shadow: 0px 2px 24px #dbd7d7;
     border-radius: 50%;
 }
+.custom-div{
+	padding: 2px;
+	border: 2px solid red;
+	color: red;
+}
+.custom-div span{
+	cursor: pointer;
+}
 
 
 /*===== Forgot-password screen css start here ===*/
@@ -310,6 +318,9 @@ a.page-link{
 .form-check-input:checked {
     background-color: #1DB954;
     border-color: #1DB954;
+}
+.logout-link{
+	cursor: pointer;
 }
 
 /*===== help screen css start here ===*/

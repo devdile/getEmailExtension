@@ -7,12 +7,11 @@ import searchImage from "../Assets/images/search-select.svg";
 import logo from "../Assets/images/logo.png";
 import googleImg from "../Assets/images/google.svg";
 import { useNavigate } from "react-router-dom";
-import {DataStore} from "@aws-amplify/datastore";
-import {SignUpModel}  from "../models"
-
 import { Amplify, API, graphqlOperation } from 'aws-amplify'
 import awsExports from "../aws-exports";
+
 Amplify.configure(awsExports);
+
 function SignIn() {
 
     let navigate = useNavigate();
@@ -25,11 +24,11 @@ function SignIn() {
     });
 
     const LoggedIn = async (values) => {
-        const loginUserModal = await DataStore.query(SignUpModel);
-        const isUserExist = loginUserModal.filter(x => x.emailaddress==values.emailaddress && x.password==values.password);
-        if (isUserExist.length != 0) {
+        let username = values.emailaddress;
+        let password = values.password
+        Auth.signIn(username, password).then((user)=>{
             navigate("/dashboard");
-        }
+        });
     }
 
     return (

@@ -1,0 +1,21 @@
+{
+    "appName": "getemailapp",
+    "roleName": "pinpointLambdaRole266e31fa",
+    "cloudformationPolicyName": "cloudformationPolicy266e31fa",
+    "cloudWatchPolicyName": "cloudWatchPolicy266e31fa",
+    "pinpointPolicyName": "pinpointPolicy266e31fa",
+    "authPolicyName": "pinpoint_amplify_266e31fa",
+    "unauthPolicyName": "pinpoint_amplify_266e31fa",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

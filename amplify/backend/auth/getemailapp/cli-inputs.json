@@ -1,0 +1,12 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "getemailapp_identitypool_692e973f",
+    "allowUnauthenticatedIdentities": false,
+    "authSelections": "identityPoolOnly",
+    "resourceName": "getemailapp",
+    "sharedId": "692e973f",
+    "serviceName": "Cognito",
+    "useDefault": "manual"
+  }
+}
